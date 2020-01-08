@@ -1,0 +1,36 @@
+server:
+  port: 8480
+
+app:
+  rabbit:
+    exchange_name: fanout.exchange
+    active_queue: event_queue4
+
+spring:
+  rabbitmq:
+    host: ${RABBITMQ_HOST:localhost}
+    port: ${RABBITMQ_PORT:5672}
+    username: ${RABBITMQ_USERNAME:guest}
+    password: ${RABBITMQ_PASSWORD:guest}
+  datasource:
+    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_SCHEMA:research1}
+    username: ${DB_USERNAME:research1}
+    password: ${DB_PASSWORD:research1}
+  jpa:
+    generate-ddl: true
+    properties.hibernate.jdbc.lob.non_contextual_creation: true
+
+logging:
+  level:
+    org.springframework.orm.jpa: INFO
+    org.hibernate.SQL: DEBUG
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: info,health,env,refresh
+  endpoint:
+    health:
+      show-details: always
+      

@@ -1,0 +1,9 @@
+rootProject.name = 'microservices-overview-course'
+include 'business-area-service'
+include 'product-service'
+include 'client-service'
+include 'research-project'
+include 'resources-service'
+include 'data-lib'
+include 'config-server'
+

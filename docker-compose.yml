@@ -1,0 +1,38 @@
+version: "3.3"
+services:
+  #------------------------------------------------------------------------
+  business-area-service:
+    build: ./business-area-service/
+    image: edu/business-area-service
+    container_name: business-area-service
+    ports:
+      - 25100:8180
+      - 25101:5105
+    links:
+      - business-area-service-postgres
+      - rabbitmq
+      - config-server
+    environment:
+      DB_HOST: business-area-service-postgres
+      RABBITMQ_HOST: rabbitmq
+      CONFIG_SERVER_HOST: config-server
+
+  business-area-service-postgres:
+    image: postgres
+    container_name: business-area-service-postgres
+    ports:
+      - 25102:5432
+    environment:
+      POSTGRES_USER: business1
+      POSTGRES_PASSWORD: business1
+      POSTGRES_DB: business1
+
+  #------------------------------------------------------------------------
+  config-server:
+    build: ./config-server/
+    image: edu/config-server
+    container_name: config-server
+    ports:
+      - 25888:8888
+    volumes:
+      - ~/config:/config

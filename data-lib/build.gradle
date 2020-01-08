@@ -1,0 +1,25 @@
+plugins {
+    id 'java'
+}
+
+group 'com.dataart.edu.ms'
+version '1.0'
+
+sourceCompatibility = 12
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+
+    compile 'org.springframework.boot:spring-boot-starter-actuator:2.1.6.RELEASE'
+    compile group: 'org.springframework.data', name: 'spring-data-jpa', version: '2.1.8.RELEASE'
+    compile group: 'javax.persistence', name: 'javax.persistence-api', version: '2.2'
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-amqp', version: '2.1.6.RELEASE'
+    compile 'com.google.code.gson:gson:2.8.5'
+
+    testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: '2.1.6.RELEASE'
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+    testCompile group: 'org.mockito', name: 'mockito-core', version: '2.28.2'
+}

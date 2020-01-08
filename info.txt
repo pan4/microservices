@@ -1,0 +1,5 @@
+Technologies:
+  * Apache Camel
+  * Deploy by Docker Compose
+  * Swagger 2
+  * Mock tests
