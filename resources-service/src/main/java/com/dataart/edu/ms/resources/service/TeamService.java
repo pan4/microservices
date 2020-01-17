@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class TeamService {
@@ -36,7 +37,18 @@ public class TeamService {
         return teamRepository.findByBusy(false);
     }
 
+    public Optional<Team> findTeamById(String teamId) {
+        return teamRepository.findById(teamId);
+    }
+
     public List<Team> list() {
         return this.teamRepository.findAll();
+    }
+
+    public void updateTeam(Team team){
+        if (StringUtils.isEmpty(team.getId())) {
+            return;
+        }
+        teamRepository.save(team);
     }
 }

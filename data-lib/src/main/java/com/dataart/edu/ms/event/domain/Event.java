@@ -1,8 +1,12 @@
 package com.dataart.edu.ms.event.domain;
 
 import com.dataart.edu.ms.domain.AppEntity;
+import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
 
 import javax.persistence.*;
+import java.util.Collections;
+import java.util.Map;
 import java.util.Objects;
 
 @Entity
@@ -74,6 +78,15 @@ public class Event implements AppEntity {
 
     public String getPayload() {
         return payload;
+    }
+
+    public Map<String, Object> getPayloadAsMap() {
+        Gson gson = new Gson();
+        try {
+            return gson.fromJson(payload, Map.class);
+        } catch (JsonSyntaxException e) {
+            return Collections.emptyMap();
+        }
     }
 
     public void setPayload(String payload) {

@@ -21,6 +21,8 @@ public class Product implements AppEntity {
     @Version
     private Long version;
 
+    private String teamId = "";
+
     public Product() {
     }
 
@@ -75,6 +77,14 @@ public class Product implements AppEntity {
 
     public List<String> getPrototypesIds() {
         return prototypesIds;
+    }
+
+    public String getTeamId() {
+        return teamId;
+    }
+
+    public void setTeamId(String teamId) {
+        this.teamId = teamId;
     }
 
     public void setPrototypesIds(List<String> prototypesIds) {

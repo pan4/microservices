@@ -45,7 +45,7 @@ public class ResearchProjectService {
         LOG.info("research project updated");
     }
 
-    public ResearchProject getByProductId(String productId) {
+    public Optional<ResearchProject> getByProductId(String productId) {
         return researchProjectRepository.findByProductId(productId);
     }
 

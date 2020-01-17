@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -38,11 +39,22 @@ public class ProductService {
         Optional<Product> productOptional = productRepository.findById(productId);
         if (productOptional.isPresent()) {
             eventProcessor.processTransactionalText(TransactionType.ESTABLISH_PRODUCT.type, IDGenerator.nextId(),
-                    EventType.PRODUCT_ESTABLISH_STARTED.type, "establish product started", productId);
+                    EventType.PRODUCT_ESTABLISH_STARTED.type, "establish product started", Collections.singletonMap("productId", productId));
         }
     }
 
     public List<Product> list() {
         return this.productRepository.findAll();
+    }
+
+    public Optional<Product> findById(String productId){
+        return productRepository.findById(productId);
+    }
+
+    public void updateProduct(Product product){
+        if (StringUtils.isEmpty(product.getId())) {
+            return;
+        }
+        productRepository.save(product);
     }
 }
