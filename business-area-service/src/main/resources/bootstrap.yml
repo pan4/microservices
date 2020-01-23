@@ -4,6 +4,6 @@ spring:
     config:
       uri: http://${CONFIG_SERVER_HOST:localhost}:${CONFIG_SERVER_PORT:8888}
       name: business-area-service
-      fail-fast: true
+      fail-fast: false
       retry:
         max-attempts: 30

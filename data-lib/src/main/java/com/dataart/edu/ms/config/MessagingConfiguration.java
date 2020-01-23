@@ -35,6 +35,9 @@ public class MessagingConfiguration {
     @Value("${spring.rabbitmq.host}")
     private String host;
 
+    @Value("${spring.rabbitmq.port}")
+    private int port;
+
     @Value("${app.rabbit.exchange_name}")
     private String exchangeName;
 
@@ -49,7 +52,7 @@ public class MessagingConfiguration {
 
     @Bean
     public ConnectionFactory connectionFactory() {
-        CachingConnectionFactory connectionFactory = new CachingConnectionFactory(host);
+        CachingConnectionFactory connectionFactory = new CachingConnectionFactory(host, port);
         connectionFactory.setUsername(username);
         connectionFactory.setPassword(password);
         return connectionFactory;
