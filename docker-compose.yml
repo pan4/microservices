@@ -6,33 +6,117 @@ services:
     image: edu/business-area-service
     container_name: business-area-service
     ports:
-      - 25100:8180
-      - 25101:5105
-    links:
-      - business-area-service-postgres
-      - rabbitmq
-      - config-server
+      - 8180:8180
+      - 5105:5105
     environment:
       DB_HOST: business-area-service-postgres
-      RABBITMQ_HOST: rabbitmq
       CONFIG_SERVER_HOST: config-server
+    depends_on:
+      - business-area-service-postgres
+      - config-server
+      - rabbitmq
+    networks:
+      project-tracker-network:
+        ipv4_address: 172.22.0.4
 
   business-area-service-postgres:
     image: postgres
     container_name: business-area-service-postgres
     ports:
-      - 25102:5432
+      - 5432:5432
     environment:
       POSTGRES_USER: business1
       POSTGRES_PASSWORD: business1
       POSTGRES_DB: business1
-
+    networks:
+      project-tracker-network:
+        ipv4_address: 172.22.0.5
   #------------------------------------------------------------------------
+  client-service:
+    build: ./client-service/
+    image: edu/client-service
+    container_name: client-service
+    ports:
+      - 8380:8380
+      - 5305:5305
+    environment:
+      DB_HOST: client-service-postgres
+      CONFIG_SERVER_HOST: config-server
+    depends_on:
+      - client-service-postgres
+      - config-server
+      - rabbitmq
+    networks:
+      project-tracker-network:
+        ipv4_address: 172.22.0.6
+
+  client-service-postgres:
+    image: postgres
+    container_name: client-service-postgres
+    ports:
+      - 5442:5432
+    environment:
+      POSTGRES_USER: client1
+      POSTGRES_PASSWORD: client1
+      POSTGRES_DB: client1
+    networks:
+      project-tracker-network:
+        ipv4_address: 172.22.0.7
+    #------------------------------------------------------------------------
+  product-service:
+    build: ./product-service/
+    image: edu/product-service
+    container_name: product-service
+    ports:
+      - 8280:8280
+      - 5205:5205
+    environment:
+      DB_HOST: product-service-postgres
+      CONFIG_SERVER_HOST: config-server
+    depends_on:
+      - product-service-postgres
+      - config-server
+      - rabbitmq
+    networks:
+      project-tracker-network:
+        ipv4_address: 172.22.0.8
+
+  product-service-postgres:
+    image: postgres
+    container_name: product-service-postgres
+    ports:
+      - 5452:5432
+    environment:
+      POSTGRES_USER: product1
+      POSTGRES_PASSWORD: product1
+      POSTGRES_DB: product1
+    networks:
+      project-tracker-network:
+        ipv4_address: 172.22.0.9
+
+
   config-server:
     build: ./config-server/
     image: edu/config-server
     container_name: config-server
     ports:
-      - 25888:8888
+      - 8888:8888
     volumes:
       - ~/config:/config
+    networks:
+      project-tracker-network:
+        ipv4_address: 172.22.0.2
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: project-tracker-rabbitmq-compose
+    ports:
+      - 5672:5672
+      - 15671:15671
+    networks:
+      project-tracker-network:
+        ipv4_address: 172.22.0.3
+
+networks:
+  project-tracker-network:
+    external: true
