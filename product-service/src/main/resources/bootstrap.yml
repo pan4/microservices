@@ -3,7 +3,7 @@ spring:
   cloud:
     config:
       uri: http://${CONFIG_SERVER_HOST:localhost}:${CONFIG_SERVER_PORT:8888}
-      name: business-area-service
+      name: product-service
       fail-fast: true
       retry:
         max-attempts: 30
