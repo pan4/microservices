@@ -72,10 +72,14 @@ public class ServiceEventHandler implements EventHandler {
     private void handleTeamFoundEvent(Event event) {
         Map<String, Object> payload = event.getPayloadAsMap();
         String productId = payload.get("productId").toString();
-        String teamId = payload.get("teamId").toString();
         Optional<ResearchProject> researchProjectOptional = researchProjectService.getByProductId(productId);
         researchProjectOptional.ifPresent(researchProject -> {
+            String teamId = payload.get("teamId").toString();
             researchProject.setTeamId(teamId);
+
+            String serverId = payload.get("serverId").toString();
+            researchProject.setServerId(serverId);
+
             researchProjectService.updateResearchProject(researchProject);
             payload.put("prototypeId", researchProject.getId());
             eventProcessor.processTransactionalText(TransactionType.ESTABLISH_PRODUCT.type, event.getTransactionId(),

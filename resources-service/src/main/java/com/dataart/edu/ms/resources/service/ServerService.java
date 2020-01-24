@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ServerService {
@@ -34,5 +35,20 @@ public class ServerService {
 
     public List<Server> list() {
         return this.serverRepository.findAll();
+    }
+
+    public Server findFreeServer() {
+        return serverRepository.findFirstByBusy(false);
+    }
+
+    public void updateServer(Server server){
+        if (StringUtils.isEmpty(server.getId())) {
+            return;
+        }
+        serverRepository.save(server);
+    }
+
+    public Optional<Server> findServerById(String serverId) {
+        return serverRepository.findById(serverId);
     }
 }

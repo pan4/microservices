@@ -18,6 +18,7 @@ public class Event implements AppEntity {
     private String id;
     private String name;
     private String type;
+    @Column(length = 1024)
     private String payload;
     private String payloadId;
     private String payloadType;

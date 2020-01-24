@@ -7,6 +7,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ServerRepository extends JpaRepository<Server, String> {
 
-    Server findByBusy(Boolean busy);
+    Server findFirstByBusy(Boolean busy);
 
 }

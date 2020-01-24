@@ -22,7 +22,9 @@ public enum EventType {
     TEAM_ASSIGNED_TO_RESEARCH_PROJECT("teamAssignedToResearchProject"),
     TEAM_ASSIGN_TO_RESEARCH_PROJECT_ROLLBACK("teamAssignToResearchProjectRollback"),
     TEAM_ASSIGNED_TO_PRODUCT("teamAssignedToProduct"),
-    TEAM_ASSIGN_TO_PRODUCT_ROLLBACK("teamAssignToProductRollback");
+    TEAM_ASSIGN_TO_PRODUCT_ROLLBACK("teamAssignToProductRollback"),
+
+    PRODUCT_RELEASE_STARTED("productReleaseStarted");
 
     public String type;
 

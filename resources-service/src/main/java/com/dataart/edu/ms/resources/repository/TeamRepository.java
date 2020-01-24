@@ -7,6 +7,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface TeamRepository extends JpaRepository<Team, String> {
 
-    Team findByBusy(Boolean busy);
+    Team findFirstByBusy(Boolean busy);
 
 }

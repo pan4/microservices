@@ -34,7 +34,7 @@ public class TeamService {
     }
 
     public Team findFreeTeam() {
-        return teamRepository.findByBusy(false);
+        return teamRepository.findFirstByBusy(false);
     }
 
     public Optional<Team> findTeamById(String teamId) {

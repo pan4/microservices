@@ -1,6 +1,7 @@
 package com.dataart.edu.ms.research.service;
 
 import com.dataart.edu.ms.domain.EventType;
+import com.dataart.edu.ms.domain.TransactionType;
 import com.dataart.edu.ms.event.processor.EventProcessor;
 import com.dataart.edu.ms.research.domain.Phase;
 import com.dataart.edu.ms.research.domain.ResearchProject;
@@ -14,8 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class ResearchProjectService {
@@ -132,6 +132,12 @@ public class ResearchProjectService {
 
         researchProject.setStatus(Status.DONE);
         researchProjectRepository.save(researchProject);
+
+        Map<String, String> payload = new HashMap<>();
+        payload.put("teamId", researchProject.getTeamId());
+        payload.put("serverId", researchProject.getServerId());
+        eventProcessor.processTransactionalText(TransactionType.RELEASE_PRODUCT.type, IDGenerator.nextId(),
+                EventType.PRODUCT_RELEASE_STARTED.type, "product release started", payload);
     }
 
 }
