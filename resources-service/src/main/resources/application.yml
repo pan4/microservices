@@ -3,8 +3,8 @@ server:
 
 app:
   rabbit:
-    exchange_name: fanout.exchange
-    active_queue: event_queue5
+    exchange_name: ${RABBITMQ_EXCHANGE:fanout.exchange}
+    active_queue: ${RABBITMQ_QUEUE:event_queue5}
 
 spring:
   rabbitmq:

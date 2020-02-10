@@ -164,7 +164,7 @@ services:
     ports:
       - 8888:8888
     volumes:
-      - ~/config:/config
+      - ./config-repo:/config
     networks:
       pm-network:
         ipv4_address: 172.22.0.2
